@@ -6,6 +6,7 @@ import 'package:p2/Assignment4.dart';
 import 'package:p2/Assignment5.dart';
 import 'package:p2/Assignment6.dart';
 import 'package:p2/Assignment7.dart';
+import 'package:p2/Assignment8.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Assignment7(),
+      home: Assignment8(),
     );
   }
 }
