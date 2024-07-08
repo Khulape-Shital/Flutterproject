@@ -3,6 +3,8 @@ import 'package:project2/Assignment1.dart';
 import 'package:project2/Assignment2.dart';
 import 'package:project2/Assignment3.dart';
 import 'package:project2/Assignment4.dart';
+import 'package:project2/Assignment5.dart';
+import 'package:project2/Assignment6.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Assignment4(),
+      home: Assignment6(),
     );
   }
 }
