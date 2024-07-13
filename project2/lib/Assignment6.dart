@@ -21,64 +21,58 @@ class Assignment6 extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Center(
+            Container(
+              height: 300,
+              width: 450,
+              color: const Color.fromARGB(255, 231, 23, 8),
               child: Center(
-                child: Container(
-                  height: 300,
-                  width: 450,
-                  color: const Color.fromARGB(255, 231, 23, 8),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 100,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                        Container(
-                          height: 80,
-                          width: 100,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                        Container(
-                          height: 80,
-                          width: 100,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                      ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 80,
+                      width: 100,
+                      color: Color(0xFFFFFFFF),
                     ),
-                  ),
+                    Container(
+                      height: 80,
+                      width: 100,
+                      color: Color(0xFFFFFFFF),
+                    ),
+                    Container(
+                      height: 80,
+                      width: 100,
+                      color: Color(0xFFFFFFFF),
+                    ),
+                  ],
                 ),
               ),
             ),
             Center(
-              child: Center(
-                child: Container(
-                  height: 300,
-                  width: 450,
-                  color: const Color.fromARGB(255, 230, 20, 5),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 100,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                        Container(
-                          height: 80,
-                          width: 100,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                        Container(
-                          height: 80,
-                          width: 100,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                      ],
-                    ),
+              child: Container(
+                height: 300,
+                width: 450,
+                color: const Color.fromARGB(255, 230, 20, 5),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: 80,
+                        width: 100,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      Container(
+                        height: 80,
+                        width: 100,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      Container(
+                        height: 80,
+                        width: 100,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    ],
                   ),
                 ),
               ),
