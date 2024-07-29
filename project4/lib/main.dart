@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project3/Assgnment5.dart';
-import 'package:project3/Assignment1.dart';
-import 'package:project3/Assignment10.dart';
-import 'package:project3/Assignment11.dart';
-import 'package:project3/Assignment2.dart';
-import 'package:project3/Assignment3.dart';
-import 'package:project3/Assignment4.dart';
-import 'package:project3/Assignment6.dart';
-import 'package:project3/Assignment7.dart';
-import 'package:project3/Assignment8.dart';
-import 'package:project3/Assignment9.dart';
+import 'package:project4/Assignment1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,8 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      debugShowCheckedModeBanner: false,
-      home: Assignment6(),
+      home: Assignment1()
     );
   }
 }
