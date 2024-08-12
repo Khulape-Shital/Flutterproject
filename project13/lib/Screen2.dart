@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project13/CoffeeTypes.dart';
+
 import 'package:project13/Coffees.dart';
+import 'package:project13/titles.dart';
+
 
 class Screen2 extends StatefulWidget {
   const Screen2({super.key});
@@ -10,6 +12,18 @@ class Screen2 extends StatefulWidget {
 }
 
 class _Screen2State extends State<Screen2> {
+  bool boxColor =true;
+  void changeColor(){
+    if(boxColor){
+      boxColor =false;
+    }
+    else{
+      boxColor=true;
+    }
+    setState(() {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,8 +116,9 @@ class _Screen2State extends State<Screen2> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 80),
+                              padding: const EdgeInsets.only(left: 20),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
@@ -112,7 +127,7 @@ class _Screen2State extends State<Screen2> {
                                     decoration: BoxDecoration(
                                         color: Colors.red,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
+                                            Radius.circular(10))),
                                     child: Center(
                                         child: Padding(
                                       padding: const EdgeInsets.all(5),
@@ -127,14 +142,14 @@ class _Screen2State extends State<Screen2> {
                                   ),
                                   Container(
                                     height: 70,
-                                    width: 170,
+                                    width: 300,
                                     decoration: BoxDecoration(),
                                     child: Center(
                                         child: Text(
                                       "Buy one get   one free ",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 25,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.w400,
                                           backgroundColor: Colors.black),
                                     )),
@@ -165,32 +180,103 @@ class _Screen2State extends State<Screen2> {
                 ],
               ),
             )),
-            Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: ,
-                    child: SingleChildScrollView(
-                      
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround    ,
-                        
-                        children: [
-                          
-                          Containercard(title: "Near By"),
-                          Containercard(title: "Book Now"),
-                          Containercard(title: "Near By"),
-                          Containercard(title: "Near By"),
-                          Containercard(title: "Near By"),
-                          Containercard(title: "Near By"),
-                          Containercard(title: "Near By"),
+            Container(
+              height: 300,
+              child: SingleChildScrollView(
+                
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround    ,
+                  
+                  children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Titles(
+                  
+                  imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtap7fZuPgO55dLTjGfwKDQuY1L6QDxJCV9B_yEF6wHNiimbJflC-DOHoQRc4QK-ScB0M&usqp=CAU",
+                   reating:"4.9", 
+                   type: "Cappuccino", 
+                   flew: " With milk", 
+                   prize: "${4.77}"
+                   ),
+                   
 
-                          
-                      
-                        ],
-                      )),
-                  ),
-                ),
+              ],
+            ),
+               Titles(imgurl: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+
+                   Titles(imgurl: "https://c4.wallpaperflare.com/wallpaper/747/312/981/coffee-coffee-beans-cup-wallpaper-preview.jpg",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+                   
+                   Titles(imgurl: "https://www.punjabkesari.com/wp-content/uploads/2024/02/coffee-brain-caffeine-neuroscincces.jpg",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+                   
+                   Titles(imgurl: "https://fertilityfamily.b-cdn.net/wp-content/uploads/2023/10/PCOS-and-coffee-scaled-1.jpg",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+                   
+
+                  ]
+                )),
+            ),
+
+             Container(
+              height: 300,
+              child: SingleChildScrollView(
+                
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround    ,
+                  
+                  children: [
+            Titles(
+              imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtap7fZuPgO55dLTjGfwKDQuY1L6QDxJCV9B_yEF6wHNiimbJflC-DOHoQRc4QK-ScB0M&usqp=CAU",
+               reating:"4.9", 
+               type: "Cappuccino", 
+               flew: " With milk", 
+               prize: "${4.77}"
+               ),
+               Titles(imgurl: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+
+                   Titles(imgurl: "https://c4.wallpaperflare.com/wallpaper/747/312/981/coffee-coffee-beans-cup-wallpaper-preview.jpg",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+                   
+                   Titles(imgurl: "https://www.punjabkesari.com/wp-content/uploads/2024/02/coffee-brain-caffeine-neuroscincces.jpg",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+                   
+                   Titles(imgurl: "https://fertilityfamily.b-cdn.net/wp-content/uploads/2023/10/PCOS-and-coffee-scaled-1.jpg",
+                reating: ("4.4"),
+                 type: "Machiato",
+                  flew: "with Chocolate",
+                   prize: "${3.5}"),
+                   
+
+                  ]
+                )),
+            ),
           ],
         ),
       ),

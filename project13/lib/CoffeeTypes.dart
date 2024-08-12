@@ -4,8 +4,8 @@ import 'package:project13/Screen2.dart';
 class Coffeetypes extends StatefulWidget {
 
  final bool updateHover;
-  
-  Coffeetypes({super.key,required this.updateHover});
+ final String title;
+  Coffeetypes({super.key,required this.updateHover,required this.title});
 
   @override
   State<Coffeetypes> createState() => _CoffeetypesState();
@@ -28,8 +28,18 @@ class _CoffeetypesState extends State<Coffeetypes> {
               })
             ),
             onPressed: (){
-
-          }, child: Text("Capaichinu")) ,
+                        Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Screen2()));
+          }, child: Center(
+                  child: Text(
+              " title",
+                style: TextStyle(
+             
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              )),) ,
     );
   }
   void _updateHover(bool hover){
