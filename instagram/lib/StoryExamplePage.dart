@@ -11,8 +11,6 @@ class StoryExamplePage extends StatefulWidget {
 }
 
 class _StoryExamplePageState extends State<StoryExamplePage> {
-  static const double _borderRadius = 100.0;
-
   Widget _createDummyPage({
     required String text,
     required String imageName,
@@ -40,7 +38,7 @@ class _StoryExamplePageState extends State<StoryExamplePage> {
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(
-                            _borderRadius,
+                            50.0,
                           ),
                         ),
                       ),
@@ -89,24 +87,19 @@ class _StoryExamplePageState extends State<StoryExamplePage> {
     );
   }
 
-  Widget _buildButtonChild(String text) {
+  Widget _buildButtonText(String text) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const SizedBox(
-            height: 100.0,
-          ),
           Text(
             text,
             style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              fontSize: 11.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -117,7 +110,6 @@ class _StoryExamplePageState extends State<StoryExamplePage> {
     String imageName,
   ) {
     return BoxDecoration(
-      borderRadius: BorderRadius.circular(_borderRadius),
       image: DecorationImage(
         image: AssetImage(
           'assets/images/$imageName.png',
@@ -130,7 +122,7 @@ class _StoryExamplePageState extends State<StoryExamplePage> {
   BoxDecoration _buildBorderDecoration(Color color) {
     return BoxDecoration(
       borderRadius: const BorderRadius.all(
-        Radius.circular(_borderRadius),
+        Radius.circular(15.0),
       ),
       border: Border.fromBorderSide(
         BorderSide(
@@ -144,135 +136,132 @@ class _StoryExamplePageState extends State<StoryExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        elevation: 0.0,
+        title: const Text('Story Example'),
+      ),
       body: Column(
         children: [
-          Container(
-            child: StoryListView(
-              listHeight: 180.0,
-              pageTransform: const StoryPage3DTransform(),
-              buttonDatas: [
-                StoryButtonData(
-                  timelineBackgroundColor: Colors.red,
-                  buttonDecoration: _buildButtonDecoration('car'),
-                  child: _buildButtonChild('Want a new car?'),
-                  borderDecoration: _buildBorderDecoration(Colors.red),
-                  storyPages: [
-                    _createDummyPage(
-                      text:
-                          'Want to buy a new car? Get our loan for the rest of your life!',
-                      imageName: 'car',
-                    ),
-                    _createDummyPage(
-                      text:
-                          'Can\'t return the loan? Don\'t worry, we\'ll take your soul as a collateral ;-)',
-                      imageName: 'car',
-                    ),
-                  ],
-                  segmentDuration: const Duration(seconds: 3),
-                ),
-                StoryButtonData(
-                  timelineBackgroundColor: Colors.blue,
-                  buttonDecoration: _buildButtonDecoration('travel_1'),
-                  borderDecoration: _buildBorderDecoration(
-                      const Color.fromARGB(255, 134, 119, 95)),
-                  child: _buildButtonChild('Travel whereever'),
-                  storyPages: [
-                    _createDummyPage(
-                      text: 'Get a loan',
-                      imageName: 'travel_1',
-                      addBottomBar: false,
-                    ),
-                    _createDummyPage(
-                      text: 'Select a place where you want to go',
-                      imageName: 'travel_2',
-                      addBottomBar: false,
-                    ),
-                    _createDummyPage(
-                      text: 'Dream about the place and pay our interest',
-                      imageName: 'travel_3',
-                      addBottomBar: false,
-                    ),
-                  ],
-                  segmentDuration: const Duration(seconds: 3),
-                ),
-                StoryButtonData(
-                  timelineBackgroundColor: Colors.orange,
-                  borderDecoration: _buildBorderDecoration(Colors.orange),
-                  buttonDecoration: _buildButtonDecoration('house'),
-                  child: _buildButtonChild('Buy a house anywhere'),
-                  storyPages: [
-                    _createDummyPage(
-                      text: 'You cannot buy a house. Live with it',
-                      imageName: 'house',
-                    ),
-                  ],
-                  segmentDuration: const Duration(seconds: 5),
-                ),
-                StoryButtonData(
-                  timelineBackgroundColor: Colors.red,
-                  buttonDecoration: _buildButtonDecoration('car'),
-                  child: _buildButtonChild('Want a new car?'),
-                  borderDecoration: _buildBorderDecoration(Colors.red),
-                  storyPages: [
-                    _createDummyPage(
-                      text:
-                          'Want to buy a new car? Get our loan for the rest of your life!',
-                      imageName: 'car',
-                    ),
-                    _createDummyPage(
-                      text:
-                          'Can\'t return the loan? Don\'t worry, we\'ll take your soul as a collateral ;-)',
-                      imageName: 'car',
-                    ),
-                  ],
-                  segmentDuration: const Duration(seconds: 5),
-                ),
-                StoryButtonData(
-                  buttonDecoration: _buildButtonDecoration('travel_1'),
-                  borderDecoration: _buildBorderDecoration(
-                      const Color.fromARGB(255, 134, 119, 95)),
-                  child: _buildButtonChild('Travel whereever'),
-                  storyPages: [
-                    _createDummyPage(
-                      text: 'Get a loan',
-                      imageName: 'travel_1',
-                      addBottomBar: false,
-                    ),
-                    _createDummyPage(
-                      text: 'Select a place where you want to go',
-                      imageName: 'travel_2',
-                      addBottomBar: false,
-                    ),
-                    _createDummyPage(
-                      text: 'Dream about the place and pay our interest',
-                      imageName: 'travel_3',
-                      addBottomBar: false,
-                    ),
-                  ],
-                  segmentDuration: const Duration(seconds: 3),
-                ),
-                StoryButtonData(
-                  isVisibleCallback: () {
-                    return false;
-                  },
-                  timelineBackgroundColor: Colors.orange,
-                  borderDecoration: _buildBorderDecoration(Colors.orange),
-                  buttonDecoration: _buildButtonDecoration('house'),
-                  child: _buildButtonChild('Buy a house anywhere'),
-                  storyPages: [
-                    _createDummyPage(
-                      text: 'You cannot buy a house. Live with it',
-                      imageName: 'house',
-                    ),
-                  ],
-                  segmentDuration: const Duration(seconds: 5),
-                ),
-              ],
-            ),
+          StoryListView(
+            pageTransform: const StoryPage3DTransform(),
+            buttonDatas: [
+              StoryButtonData(
+                timelineBackgroundColor: Colors.red,
+                buttonDecoration: _buildButtonDecoration('car'),
+                child: _buildButtonText('Want a new car?'),
+                borderDecoration: _buildBorderDecoration(Colors.red),
+                storyPages: [
+                  _createDummyPage(
+                    text:
+                        'Want to buy a new car? Get our loan for the rest of your life!',
+                    imageName: 'car',
+                  ),
+                  _createDummyPage(
+                    text:
+                        'Can\'t return the loan? Don\'t worry, we\'ll take your soul as a collateral ;-)',
+                    imageName: 'car',
+                  ),
+                ],
+                segmentDuration: const Duration(seconds: 3),
+              ),
+              StoryButtonData(
+                timelineBackgroundColor: Colors.blue,
+                buttonDecoration: _buildButtonDecoration('travel_1'),
+                borderDecoration:
+                    _buildBorderDecoration(const Color.fromARGB(255, 134, 119, 95)),
+                child: _buildButtonText('Travel whereever'),
+                storyPages: [
+                  _createDummyPage(
+                    text: 'Get a loan',
+                    imageName: 'travel_1',
+                    addBottomBar: false,
+                  ),
+                  _createDummyPage(
+                    text: 'Select a place where you want to go',
+                    imageName: 'travel_2',
+                    addBottomBar: false,
+                  ),
+                  _createDummyPage(
+                    text: 'Dream about the place and pay our interest',
+                    imageName: 'travel_3',
+                    addBottomBar: false,
+                  ),
+                ],
+                segmentDuration: const Duration(seconds: 3),
+              ),
+              StoryButtonData(
+                timelineBackgroundColor: Colors.orange,
+                borderDecoration: _buildBorderDecoration(Colors.orange),
+                buttonDecoration: _buildButtonDecoration('house'),
+                child: _buildButtonText('Buy a house anywhere'),
+                storyPages: [
+                  _createDummyPage(
+                    text: 'You cannot buy a house. Live with it',
+                    imageName: 'house',
+                  ),
+                ],
+                segmentDuration: const Duration(seconds: 5),
+              ),
+              StoryButtonData(
+                timelineBackgroundColor: Colors.red,
+                buttonDecoration: _buildButtonDecoration('car'),
+                child: _buildButtonText('Want a new car?'),
+                borderDecoration: _buildBorderDecoration(Colors.red),
+                storyPages: [
+                  _createDummyPage(
+                    text:
+                        'Want to buy a new car? Get our loan for the rest of your life!',
+                    imageName: 'car',
+                  ),
+                  _createDummyPage(
+                    text:
+                        'Can\'t return the loan? Don\'t worry, we\'ll take your soul as a collateral ;-)',
+                    imageName: 'car',
+                  ),
+                ],
+                segmentDuration: const Duration(seconds: 3),
+              ),
+              StoryButtonData(
+                buttonDecoration: _buildButtonDecoration('travel_1'),
+                borderDecoration:
+                    _buildBorderDecoration(const Color.fromARGB(255, 134, 119, 95)),
+                child: _buildButtonText('Travel whereever'),
+                storyPages: [
+                  _createDummyPage(
+                    text: 'Get a loan',
+                    imageName: 'travel_1',
+                    addBottomBar: false,
+                  ),
+                  _createDummyPage(
+                    text: 'Select a place where you want to go',
+                    imageName: 'travel_2',
+                    addBottomBar: false,
+                  ),
+                  _createDummyPage(
+                    text: 'Dream about the place and pay our interest',
+                    imageName: 'travel_3',
+                    addBottomBar: false,
+                  ),
+                ],
+                segmentDuration: const Duration(seconds: 3),
+              ),
+              StoryButtonData(
+                timelineBackgroundColor: Colors.orange,
+                borderDecoration: _buildBorderDecoration(Colors.orange),
+                buttonDecoration: _buildButtonDecoration('house'),
+                child: _buildButtonText('Buy a house anywhere'),
+                storyPages: [
+                  _createDummyPage(
+                    text: 'You cannot buy a house. Live with it',
+                    imageName: 'house',
+                  ),
+                ],
+                segmentDuration: const Duration(seconds: 5),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
-}
+} 

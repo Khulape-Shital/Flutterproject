@@ -28,8 +28,8 @@ class _CoffeetypesState extends State<Coffeetypes> {
               })
             ),
             onPressed: (){
-                        Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Screen2()));
+                    //     Navigator.push(context,
+                    // MaterialPageRoute(builder: (context) => Screen2()));
           }, child: Center(
                   child: Text(
               " title",

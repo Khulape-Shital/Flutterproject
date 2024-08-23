@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project6/Screen1.dart';
+
 import 'package:project6/Screen3.dart';
 
 class Screen2 extends StatelessWidget {

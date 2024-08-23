@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/StoryExamplePage.dart';
+
 
 import 'package:instagram/program1.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,14 +12,14 @@ class Screen1 extends StatefulWidget {
       "Jin",
       2354,
       3554,
-      "Jin is the oldest BTS member. The group calls him “eomma (mother)” because he loves cooking and cleaning for them. Kim Seok Jin did not have any singing background before BTS. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      "Jin is the oldest BTS member.",
       "5 min ago");
   static Demo d3 = Demo(
       "https://qph.cf2.quoracdn.net/main-qimg-2256caf2ae788ae14295a0a9fb4d169f",
       "V",
       34,
       64,
-      "BTS was a 6-men group before its official debut. Kim Tae Hyung was the group's secret member for so long that fans were surprised when he was publicly introduced as the seventh member. He joined them at the age of 17 years. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      " v was the group's secret member ",
       "5 min ago");
 
   static Demo d4 = Demo(
@@ -27,35 +27,35 @@ class Screen1 extends StatefulWidget {
       "RM",
       4234,
       4535,
-      "Since Kim Nam Joon is the only BTS member fluent in English, he teaches the group and translates during interviews. The rapper learned English from the American Friends Apart show. He is also fluent in Japanese and can quickly learn foreign languages. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      "he is the leader of BTS",
       "5 min ago");
   static Demo d5 = Demo(
       "https://6.soompi.io/wp-content/uploads/image/20240807193124_Suga.jpg?s=900x600&e=t",
       "Suga",
       46364,
       5744,
-      "The rapper impresses RM with his songwriting and production skills. Min Yoon Gi has produced around 70 songs. His studio is called Genius Lab. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      ". His studio is called Genius Lab.",
       "s min ago");
   static Demo d6 = Demo(
       "https://qph.cf2.quoracdn.net/main-qimg-62a6e76e3134f463e09301561f48c273-lq",
       "Jhope",
       2323,
       4535,
-      "Before joining BTS, Jung Ho Seok was among the best freestyle street dancers in his hometown, Gwangju. His stage name, J-Hope, came from his desire to give humans peace and hope. He auditioned for Big Hit at age 17 and trained for three years before the band's debut. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      " his desire to give humans peace and hope.",
       "5 min ago");
   static Demo d7 = Demo(
       "https://qph.cf2.quoracdn.net/main-qimg-672d26dd331d9b6e377f03fddc55c7c4-lq",
       "JK",
       45342,
       3535,
-      "BTS almost dropped him severally because the training was quite challenging for him. As a result, Jimin was the last person to the other six BTS members before the band's debut. V came along later as a seventh member. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      "BTS almost dropped him severally  ",
       "5 min ago");
   static Demo d8 = Demo(
       "https://imgix.bustle.com/uploads/image/2023/2/21/0519f295-183f-4b8b-aa81-15220f124a3c-bts_proof-concept-photo_proof-ver_jimin-2-1.jpg",
       "Jimin",
       3253,
       5332,
-      "BTS almost dropped him severally because the training was quite challenging for him. As a result, Jimin was the last person to the other six BTS members before the band's debut. V came along later as a seventh member. Read more: https://kami.com.ph/94934-bts-members-profile-real-names-height-age-net-worth.html",
+      "He is the youngest member of group",
       "5 min ago");
 
   final List<Demo> Players = [d2, d3, d4, d5, d6, d7, d8];
@@ -113,8 +113,7 @@ class _Screen1State extends State<Screen1> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-          
-          StoryExamplePage(),
+         
             Container(
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -131,13 +130,16 @@ class _Screen1State extends State<Screen1> {
                           image: DecorationImage(
                               image: NetworkImage(
                                   "${widget.Players[index].imgurl}"),
+                                  
                               fit: BoxFit.cover),
                         ),
                         child: Container(
                           margin:
                               EdgeInsets.only(top: 20, bottom: 10, left: 20),
                           child: Row(
+                            
                             crossAxisAlignment: CrossAxisAlignment.start,
+                      
                             children: [
                               Container(
                                 height: 50,
@@ -156,12 +158,11 @@ class _Screen1State extends State<Screen1> {
                                 ),
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                
                                 children: [
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "${widget.Players[index].acount_name}",
@@ -172,28 +173,31 @@ class _Screen1State extends State<Screen1> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Icon(
-                                            Icons.music_note_sharp,
-                                          ),
-                                          Text(
-                                            "${widget.Players[index].acount_name}",
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.music_note_sharp,
+                                              ),
+                                              Text(
+                                            "${widget.Players[index].bio}",
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white),
-                                          )
+                                          ),
+                                            ],
+                                          ),
+                                          
+                                          Icon(Icons.format_list_bulleted_sharp),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 250),
-                                child: Icon(Icons.format_list_bulleted_sharp),
-                              ),
+                              
                             ],
                           ),
                         ),
