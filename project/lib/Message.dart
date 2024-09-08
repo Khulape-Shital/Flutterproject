@@ -4,6 +4,7 @@ import 'package:project/chat.dart';
 import 'package:project/program1.dart';
 
 
+
 class Message extends StatefulWidget {
   final List<Demo>? players;
   const Message({super.key,this.players});
@@ -60,6 +61,7 @@ class _MessageState extends State<Message> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("");
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -108,14 +110,14 @@ class _MessageState extends State<Message> {
                  scrollDirection: Axis.vertical,
                  physics: NeverScrollableScrollPhysics(),
                  shrinkWrap: true,
-                 itemCount: Players.length,
+                 itemCount:7 ,
                  itemBuilder: (context,index){
                        return Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
                            InkWell(
                             onTap: (){
-
+                             
                             Navigator.push(context,MaterialPageRoute(builder: (contex)=>Chat(profilePhoto:"${Players[index].imgurl}" , accountName: "${Players[index].acount_name}", hoby: "${Players[index].hoby}")));
                             },
                              child: Row(crossAxisAlignment: CrossAxisAlignment.center,

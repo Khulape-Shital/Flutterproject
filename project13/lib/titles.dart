@@ -62,7 +62,7 @@ class Titles extends StatelessWidget {
                       
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Detaildcard(flav: flew, imgurl: imgurl, prize: prize, reating: reating, type: type,)));
                     },
-                    backgroundColor: Color.fromARGB(255, 179, 124, 104),
+                    backgroundColor: Color.fromARGB(255, 74, 165, 231),
                     child:  Icon(Icons.add,),
                     ),
                       ],

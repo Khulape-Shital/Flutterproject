@@ -43,7 +43,7 @@ class _Screen2State extends State<Screen2> {
           Padding(padding: EdgeInsets.only(right: 10)),
           Icon(Icons.battery_3_bar_rounded, color: Colors.white)
         ],
-        backgroundColor: Colors.black,
+        backgroundColor:Color.fromARGB(255, 81, 177, 233),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -52,7 +52,7 @@ class _Screen2State extends State<Screen2> {
             Container(
               height: 300,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 9, 9, 9),
+                color: Color.fromARGB(255, 111, 197, 232),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(30),
@@ -70,7 +70,7 @@ class _Screen2State extends State<Screen2> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
-                                "Bilzen, Tanjungbalai",
+                                "Ganpatipule",
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w400,
@@ -110,7 +110,7 @@ class _Screen2State extends State<Screen2> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "https://fertilityfamily.b-cdn.net/wp-content/uploads/2023/10/PCOS-and-coffee-scaled-1.jpg"),
+                                    "https://hblimg.mmtcdn.com/content/hubble/img/goa/mmt/destination/m_destination-goa-landscape_l_400_640.jpg"),
                                 fit: BoxFit.cover)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -125,14 +125,14 @@ class _Screen2State extends State<Screen2> {
                                     height: 40,
                                     width: 100,
                                     decoration: BoxDecoration(
-                                        color: Colors.red,
+                                        
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10))),
                                     child: Center(
                                         child: Padding(
                                       padding: const EdgeInsets.all(5),
                                       child: Text(
-                                        "Promo",
+                                        "",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -146,7 +146,7 @@ class _Screen2State extends State<Screen2> {
                                     decoration: BoxDecoration(),
                                     child: Center(
                                         child: Text(
-                                      "Buy one get   one free ",
+                                      "",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -171,12 +171,12 @@ class _Screen2State extends State<Screen2> {
               child: Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 20)),
-                  Coffees(title: "Cappuccino"),
-                  Coffees(title: "Machiato"),
-                  Coffees(title: "Latte"),
-                  Coffees(title: "Americano"),
-                  Coffees(title: "Expreso"),
-                  Coffees(title: "Brow"),
+                  Coffees(title: "Goa"),
+                  Coffees(title: "Digha"),
+                  Coffees(title: "Lakshadweep"),
+                  Coffees(title: "Kerala"),
+                  Coffees(title: "Gujarat "),
+                  Coffees(title: "Tamil Nadu"),
                 ],
               ),
             )),
@@ -194,38 +194,38 @@ class _Screen2State extends State<Screen2> {
               children: [
                 Titles(
                   
-                  imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtap7fZuPgO55dLTjGfwKDQuY1L6QDxJCV9B_yEF6wHNiimbJflC-DOHoQRc4QK-ScB0M&usqp=CAU",
+                  imgurl: "https://static.toiimg.com/thumb/msid-104501508,width-748,height-499,resizemode=4,imgsize-126164/.jpg",
                    reating:"4.9", 
-                   type: "Cappuccino", 
-                   flew: " With milk", 
+                   type: "Goa", 
+                   flew: "", 
                    prize: "${4.77}"
                    ),
                    
 
               ],
             ),
-               Titles(imgurl: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+               Titles(imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9rqZZqr-482phZ4TWiG1t08a13MVJ8KzO7Q&s",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Digha",
+                  flew: "",
                    prize: "${3.5}"),
 
-                   Titles(imgurl: "https://c4.wallpaperflare.com/wallpaper/747/312/981/coffee-coffee-beans-cup-wallpaper-preview.jpg",
+                   Titles(imgurl: "https://media.istockphoto.com/id/535168027/photo/india-goa-palolem-beach.jpg?s=612x612&w=0&k=20&c=iGV1Ue0Efj87dQirWnUpZVG1dNobUjfVvMGdKHTJ7Qg=",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Lakshadweep",
+                  flew: "",
                    prize: "${3.5}"),
                    
-                   Titles(imgurl: "https://www.punjabkesari.com/wp-content/uploads/2024/02/coffee-brain-caffeine-neuroscincces.jpg",
+                   Titles(imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRKVUu_svNVJf5bVQZf3Gxa8ZEMB4T7wOo0g&s",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Kerala",
+                  flew: "",
                    prize: "${3.5}"),
                    
-                   Titles(imgurl: "https://fertilityfamily.b-cdn.net/wp-content/uploads/2023/10/PCOS-and-coffee-scaled-1.jpg",
+                   Titles(imgurl: "https://img.traveltriangle.com/blog/wp-content/uploads/2017/11/cover-for-Beaches-In-India.jpg",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Shivrajpur beach",
+                  flew: "",
                    prize: "${3.5}"),
                    
 
@@ -233,7 +233,7 @@ class _Screen2State extends State<Screen2> {
                 )),
             ),
 
-             Container(
+                Container(
               height: 300,
               child: SingleChildScrollView(
                 
@@ -242,41 +242,51 @@ class _Screen2State extends State<Screen2> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround    ,
                   
                   children: [
-            Titles(
-              imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtap7fZuPgO55dLTjGfwKDQuY1L6QDxJCV9B_yEF6wHNiimbJflC-DOHoQRc4QK-ScB0M&usqp=CAU",
-               reating:"4.9", 
-               type: "Cappuccino", 
-               flew: " With milk", 
-               prize: "${4.77}"
-               ),
-               Titles(imgurl: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Titles(
+                  
+                  imgurl: "https://static.toiimg.com/thumb/msid-104501508,width-748,height-499,resizemode=4,imgsize-126164/.jpg",
+                   reating:"4.9", 
+                   type: "Goa", 
+                   flew: " With milk", 
+                   prize: "${4.77}"
+                   ),
+                   
+
+              ],
+            ),
+               Titles(imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9rqZZqr-482phZ4TWiG1t08a13MVJ8KzO7Q&s",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Digha",
+                  flew: "",
                    prize: "${3.5}"),
 
-                   Titles(imgurl: "https://c4.wallpaperflare.com/wallpaper/747/312/981/coffee-coffee-beans-cup-wallpaper-preview.jpg",
+                   Titles(imgurl: "https://media.istockphoto.com/id/535168027/photo/india-goa-palolem-beach.jpg?s=612x612&w=0&k=20&c=iGV1Ue0Efj87dQirWnUpZVG1dNobUjfVvMGdKHTJ7Qg=",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Lakshadweep",
+                  flew: "",
                    prize: "${3.5}"),
                    
-                   Titles(imgurl: "https://www.punjabkesari.com/wp-content/uploads/2024/02/coffee-brain-caffeine-neuroscincces.jpg",
+                   Titles(imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRKVUu_svNVJf5bVQZf3Gxa8ZEMB4T7wOo0g&s",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Kerala",
+                  flew: "",
                    prize: "${3.5}"),
                    
-                   Titles(imgurl: "https://fertilityfamily.b-cdn.net/wp-content/uploads/2023/10/PCOS-and-coffee-scaled-1.jpg",
+                   Titles(imgurl: "https://img.traveltriangle.com/blog/wp-content/uploads/2017/11/cover-for-Beaches-In-India.jpg",
                 reating: ("4.4"),
-                 type: "Machiato",
-                  flew: "with Chocolate",
+                 type: "Shivrajpur beach",
+                  flew: "",
                    prize: "${3.5}"),
                    
 
                   ]
                 )),
             ),
+
+             
           ],
         ),
       ),
