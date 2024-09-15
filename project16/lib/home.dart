@@ -14,6 +14,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final UserName =TextEditingController();
   final Passward =TextEditingController();
+  final count =7;
+
 
    final List<String>task =[];
   @override
@@ -88,7 +90,8 @@ class _HomeState extends State<Home> {
                              ),
                ),
            ElevatedButton(onPressed: (){
-            if(UserName.text=="" && Passward.text=="" ){
+            // if(UserName.text.length==7 && UserName.text=="Shital@" && Passward.text=="" ){
+            if( UserName.text=="" && Passward.text=="" ){
             
         Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen4(logos: programming,usar: UserName.text,)));
             }
