@@ -37,16 +37,16 @@ List programming = [
       "control Statement",
       "Opps",
     ],
-    "regardingTopics":{
-    "variables":["X","y","A","B"],
+   
+    
+
+  },
+
+{"variables":["X","y","A","B"],
     "DataTypes":["Integer","Float","double","char"],
     "OPerators":["Arithmatic","Logical","Unary","Bitwise","Assignment","Relational"],
     "Loops":["For Loop","While Loop","do While Loop"],
     "control statments":["IF-Else","Switch",],
-    "Opps":["constructor","Inheritance","Abstraction","Overloadein","Overriding","setters-getters"]
-
-  }}
-
-
+    "Opps":["constructor","Inheritance","Abstraction","Overloadein","Overriding","setters-getters"]}
   
 ];

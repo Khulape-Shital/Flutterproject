@@ -6,11 +6,12 @@ class Topics extends StatelessWidget {
   final String? image;
   final String? LangName;
   final List? subTopics;
-  final List? regardingCodes; // Assuming image is a single String for one image
+  final Map? regardingCodes; // Assuming image is a single String for one image
   const Topics({super.key, this.image, this.LangName, this.subTopics,this.regardingCodes});
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("$regardingCodes");
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 101, 216, 228),
       body: Column(
@@ -55,7 +56,7 @@ class Topics extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => CodesRegarding(regarding:logos![3] ,)));
+                              MaterialPageRoute(builder: (context) => CodesRegarding(regarding:regardingCodes![index],)));
                         },
                         child: Container(
                           height: 60,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project16/Screen4.dart';
+import 'package:project16/Screen1.dart';
 
 import 'package:project16/project_data.dart';
 
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
             // if(UserName.text.length==7 && UserName.text=="Shital@" && Passward.text=="" ){
             if( UserName.text=="" && Passward.text=="" ){
             
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen4(logos: programming,usar: UserName.text,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen1(logos: programming,usar: UserName.text,)));
             }
             
           }, child: Text("Submit"))

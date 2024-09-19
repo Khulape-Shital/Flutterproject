@@ -3,11 +3,11 @@ import 'package:project16/Topics.dart';
 
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 
-class Screen4 extends StatelessWidget {
+class Screen1 extends StatelessWidget {
   final List? logos;
   final String? usar;
 
-  const Screen4({super.key, this.logos, this.usar});
+  const Screen1({super.key, this.logos, this.usar});
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class Screen4 extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Topics(
-                                    regardingCodes: logos![2]["regardingTopics"],
+                                      regardingCodes: logos![3],
                                       image: logos![0]["Languages"][index],
                                       LangName: logos![2]["topicName"][index],
                                       subTopics: logos![2]["topics"])));
