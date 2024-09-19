@@ -119,12 +119,18 @@ class Screen4 extends StatelessWidget {
                 duration: Duration(seconds: 200),
                 child: Row(
                   children: List.generate(
-                    
                     logos![0]["Languages"].length,
                     (index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Topics(image: logos![0]["Languages"][index],LangName: logos![2]["topicName"][index],subTopics: logos![2]["topics"])));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Topics(
+                                    regardingCodes: logos![2]["regardingTopics"],
+                                      image: logos![0]["Languages"][index],
+                                      LangName: logos![2]["topicName"][index],
+                                      subTopics: logos![2]["topics"])));
                         },
                         child: Container(
                           height: 150,
@@ -143,14 +149,11 @@ class Screen4 extends StatelessWidget {
                               )
                             ],
                             image: DecorationImage(
-                              image:
-                                  AssetImage("${logos![0]["Languages"][index]}"),
-                                  
+                              image: AssetImage(
+                                  "${logos![0]["Languages"][index]}"),
                               fit: BoxFit.cover,
                             ),
-                            
                           ),
-                          
                         ),
                       );
                     },
@@ -216,7 +219,6 @@ class Screen4 extends StatelessWidget {
             Container(
               width: 400,
               height: 250,
-              
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -226,71 +228,75 @@ class Screen4 extends StatelessWidget {
                 delay: Duration(seconds: 0),
                 duration: Duration(seconds: 200),
                 child: Row(
-                  children: 
-                    List.generate(
-                    logos![1]["upcomming"].length,
-                         (index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                border: Border.all(
-                                    width: 2,
-                                    color: const Color.fromARGB(255, 97, 95, 95)),
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage("${logos![1]["upcomming"][index]}"),
-                                  fit: BoxFit.cover,
-                                )),
-                            height: 200,
-                            width: 300,
-                           margin: EdgeInsets.all(20),
-                            child: Column(
+                  children:
+                      List.generate(logos![1]["upcomming"].length, (index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          border: Border.all(
+                              width: 2,
+                              color: const Color.fromARGB(255, 97, 95, 95)),
+                          image: DecorationImage(
+                            image:
+                                AssetImage("${logos![1]["upcomming"][index]}"),
+                            fit: BoxFit.cover,
+                          )),
+                      height: 200,
+                      width: 300,
+                      margin: EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        "${logos![1]["Timing"][index]}",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white),
-                                      ),
-                                     
-                                    ],
-                                  ),
-                                ),
                                 Text(
-                                      "${logos![1]["Dates"][index]}",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                    ),
-                                    
-                                     Text(
-                                      "${logos![1]["course"][index]}",
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                    ),
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 30),
-                                       child: ElevatedButton(onPressed: (){
-                                          Color.fromARGB(255, 125, 159, 233);
-                                          Border.all(width: 2,color: const Color.fromARGB(255, 125, 123, 123));
-                                        }, child: Text("Join Demo",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400),)),
-                                     )
-                                    
+                                  "${logos![1]["Timing"][index]}",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),
+                                ),
                               ],
                             ),
-                          );
-                        }),
-                  
+                          ),
+                          Text(
+                            "${logos![1]["Dates"][index]}",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                          Text(
+                            "${logos![1]["course"][index]}",
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Color.fromARGB(255, 125, 159, 233);
+                                  Border.all(
+                                      width: 2,
+                                      color: const Color.fromARGB(
+                                          255, 125, 123, 123));
+                                },
+                                child: Text(
+                                  "Join Demo",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400),
+                                )),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
                 ),
               ),
             )
