@@ -26,7 +26,7 @@ class Email extends StatelessWidget {
             ),
             child: ListTile(
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>Address(address: mail!["address"],)));
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>Address(address: mail,)));
               },
                     
               title: Column(

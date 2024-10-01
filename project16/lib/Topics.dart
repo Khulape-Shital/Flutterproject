@@ -6,7 +6,7 @@ class Topics extends StatelessWidget {
   final String? image;
   final String? LangName;
   final List? subTopics;
-  final Map? regardingCodes; // Assuming image is a single String for one image
+  final List? regardingCodes; // Assuming image is a single String for one image
   const Topics({super.key, this.image, this.LangName, this.subTopics,this.regardingCodes});
 
   @override
@@ -78,6 +78,7 @@ class Topics extends StatelessWidget {
                                 ),
                               ),
                               Text(
+                                
                                 "${subTopics![index]}",
                                 style: TextStyle(
                                     fontSize: 15,

@@ -38,7 +38,14 @@ List programming = [
       "Opps",
     ],
    
-    
+    "langTopics": [
+      ["X", "y", "A", "B"],
+      ["Integer", "Float", "double", "char"],
+      ["Arithmetic", "Logical", "Unary", "Bitwise", "Assignment", "Relational"],
+      ["For Loop", "While Loop", "do While Loop"],
+      ["IF-Else", "Switch"],
+      [ "constructor","Inheritance","Abstraction","Overloading","Overriding","setters-getters"  ]
+    ],
 
   },
 

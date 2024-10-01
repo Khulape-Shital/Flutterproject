@@ -127,7 +127,7 @@ class Screen1 extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Topics(
-                                      regardingCodes: logos![3],
+                                      regardingCodes: logos![2]["langTopics"],
                                       image: logos![0]["Languages"][index],
                                       LangName: logos![2]["topicName"][index],
                                       subTopics: logos![2]["topics"])));

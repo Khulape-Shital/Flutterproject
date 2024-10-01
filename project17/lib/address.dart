@@ -33,7 +33,7 @@ class Address extends StatelessWidget {
               title: Center(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("UserAddress: ${address}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400),),
+                 Text("UserEmail: ${address!["address"]}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400),),
                  
                 ],
               )),
