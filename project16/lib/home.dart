@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
                ),
            ElevatedButton(onPressed: (){
             // if(UserName.text.length==7 && UserName.text=="Shital@" && Passward.text=="" ){
-            if( UserName.text=="" && Passward.text=="" ){
+            if( UserName.text=="Shital Khulape" && Passward.text=="1" ){
             
         Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen1(logos: programming,usar: UserName.text,)));
             }
