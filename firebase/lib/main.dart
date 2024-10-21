@@ -1,158 +1,183 @@
+import 'package:firebase/Tasks.dart';
+import 'package:firebase/category.dart';
 import 'package:firebase/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firestore CRUD Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+      title: 'Firestore Example',
+      home: CategoryList(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _textFieldController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  void _addData(String text) async {
-    await _firestore.collection('items').add({'name': text});
-    setState(() {});
-  }
-
-  void _updateData(String id, String newText) async {
-    await _firestore.collection('items').doc(id).update({'name': newText});
-    setState(() {});
-  }
-
-  void _deleteData(String id) async {
-    await _firestore.collection('items').doc(id).delete();
-    setState(() {});
-  }
-
-  Widget _buildListItem(DocumentSnapshot document) {
-    return ListTile(
-      title: Text(document['name']),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () => _showEditDialog(document),
-          ),
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () => _deleteData(document.id),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showEditDialog(DocumentSnapshot document) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Edit Item'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: InputDecoration(hintText: document['name']),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('CANCEL'),
-              onPressed: () {
-                Navigator.pop(context);
-                _textFieldController.clear();
-              },
-            ),
-            TextButton(
-              child: Text('SAVE'),
-              onPressed: () {
-                _updateData(document.id, _textFieldController.text);
-                Navigator.pop(context);
-                _textFieldController.clear();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // created a categories collection on firestore
+    final CollectionReference categoriesRef =
+        FirebaseFirestore.instance.collection('categories');
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Firestore CRUD Demo'),
-      ),
-      body: StreamBuilder(
-        stream: _firestore.collection('items').snapshots(),
+      appBar: AppBar(title: const Text('Categories')),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: categoriesRef.snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return CircularProgressIndicator();
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // coverted firestore data(documetapshot data) ito our model class Category
+          final List<Category> categories = snapshot.data!.docs
+              .map((doc) => Category.fromSnapshot(doc))
+              .toList();
+
           return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
+            itemCount: categories.length,
             itemBuilder: (context, index) {
-              return _buildListItem(snapshot.data!.docs[index]);
+              final category = categories[index];
+              return ListTile(
+                title: Text(category.name),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TaskList(
+                          categoryId: category.id, categoryName: category.name),
+                    ),
+                  );
+                },
+              );
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddDialog(),
-        tooltip: 'Add Item',
-        child: Icon(Icons.add),
+        onPressed: () {
+          _showBottomSheet(context, categoriesRef);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
 
-  void _showAddDialog() {
-    showDialog(
+  void _showBottomSheet(
+      BuildContext context, CollectionReference categoriesRef) {
+    final TextEditingController _controller = TextEditingController();
+
+    showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Add Item'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: InputDecoration(hintText: 'Enter item name'),
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _controller,
+                decoration: const InputDecoration(
+                  labelText: 'Enter category name',
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {},
+                child: const Text('Add Category'),
+              ),
+            ],
           ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('CANCEL'),
-              onPressed: () {
-                Navigator.pop(context);
-                _textFieldController.clear();
-              },
-            ),
-            TextButton(
-              child: Text('ADD'),
-              onPressed: () {
-                _addData(_textFieldController.text);
-                Navigator.pop(context);
-                _textFieldController.clear();
-              },
-            ),
-          ],
+        );
+      },
+    );
+  }
+}
+
+class TaskList extends StatelessWidget {
+  final String categoryName;
+  final String categoryId;
+
+  TaskList({
+    required this.categoryId,
+    required this.categoryName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // created "Tasks" collection on firestore
+    final CollectionReference tasksRef =
+        FirebaseFirestore.instance.collection('tasks');
+
+    return Scaffold(
+      appBar: AppBar(title: Text(categoryName)),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: tasksRef.where('categoryId', isEqualTo: categoryId).snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // converted firestore tasks colection data to our model class
+          final List<Task> tasks =
+              snapshot.data!.docs.map((doc) => Task.fromSnapshot(doc)).toList();
+
+          return ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              final task = tasks[index];
+              return ListTile(
+                title: Text(task.title),
+                onLongPress: () async {},
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showBottomSheet(context, tasksRef);
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context, CollectionReference tasksRef) {
+    final TextEditingController _controller = TextEditingController();
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _controller,
+                decoration: const InputDecoration(
+                  labelText: 'Enter task title',
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {},
+                child: const Text('Add Task'),
+              ),
+            ],
+          ),
         );
       },
     );

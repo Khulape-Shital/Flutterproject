@@ -1,7 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/AddToDoPage.dart';
-import 'package:todo_app/AppBars/ProfileAppBar.dart';
+
 import 'package:todo_app/HomePage.dart';
 import 'package:todo_app/ProfileDetail.dart';
 import 'package:todo_app/ProfileHeader.dart';
@@ -30,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: ProfileAppBar(),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

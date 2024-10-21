@@ -3,7 +3,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:todo_app/AppBars/AddTodoAppBar.dart';
+
 import 'package:todo_app/HomePage.dart';
 import 'package:todo_app/ProfilePage.dart';
 import 'package:todo_app/TodoModel.dart';
@@ -85,7 +85,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AddTodoAppBar(),
+        appBar: AppBar(),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Column(

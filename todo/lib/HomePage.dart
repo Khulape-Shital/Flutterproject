@@ -1,7 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/AddToDoPage.dart';
-import 'package:todo_app/AppBars/HomePageAppBar.dart';
+
 import 'package:todo_app/EditTodoPage.dart';
 import 'package:todo_app/ProfilePage.dart';
 import 'package:todo_app/TodoModel.dart';
@@ -231,7 +231,7 @@ class _HomepageState extends State<Homepage> {
     ];
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: HomeAppBar(),
+      appBar: AppBar(),
       body: _pages[_selectedTabIndex],
       bottomNavigationBar: ConvexAppBar(
         style: TabStyle.react,
