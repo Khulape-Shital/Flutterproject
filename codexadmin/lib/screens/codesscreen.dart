@@ -1,7 +1,6 @@
-import 'package:codexadmin/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:codexadmin/services/firebase_service.dart';
 
 class CodesScreen extends StatefulWidget {
   final String courseId;
@@ -22,14 +21,21 @@ class _CodesScreenState extends State<CodesScreen> {
   final FirebaseService _firebaseService = FirebaseService();
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _codeDescController = TextEditingController();
+  
 
   void _addCode() {
     String code = _codeController.text.trim();
     String description = _codeDescController.text.trim();
 
+    print(
+        "Attempting to add code: $code, description: $description"); // Debug line
+
     if (code.isNotEmpty && description.isNotEmpty) {
-      _firebaseService.addCode(widget.courseId, widget.topicId, code, description);
+      _firebaseService.addCode(
+          widget.courseId, widget.topicId, code, description,);
       Navigator.of(context).pop();
+    } else {
+      print("Code or description is empty."); // Debug line
     }
   }
 
@@ -58,11 +64,24 @@ class _CodesScreenState extends State<CodesScreen> {
             return ListView.builder(
               itemCount: codes.length,
               itemBuilder: (context, index) {
-                var code = codes[index];
-                return ListTile(
-                  title: Text(code['code']),
-                  subtitle: Text(code['description']),
-                );
+                try {
+                  var code = codes[index];
+                  String codeText = code['code'] ?? 'No code available';
+                  String descriptionText =
+                      code['description'] ?? 'No description available';
+
+                  return ListTile(
+                    title: Text(codeText),
+                    subtitle: Text(descriptionText),
+                  );
+                } catch (e) {
+                  print(
+                      "Error reading document data: $e"); // Log errors for debugging
+                  return ListTile(
+                    title: Text('Invalid code document'),
+                    subtitle: Text('Some fields are missing'),
+                  );
+                }
               },
             );
           }
@@ -71,9 +90,7 @@ class _CodesScreenState extends State<CodesScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddCodeDialog();
-        },
+        onPressed: _showAddCodeDialog,
         child: Icon(Icons.add),
         tooltip: 'Add Code',
       ),
@@ -94,7 +111,7 @@ class _CodesScreenState extends State<CodesScreen> {
             ),
             TextField(
               controller: _codeDescController,
-              decoration: InputDecoration(labelText: 'Code Description'),
+              decoration: InputDecoration(labelText: 'Description'),
             ),
           ],
         ),

@@ -2,7 +2,6 @@ import 'package:codexadmin/screens/codesscreen.dart';
 import 'package:codexadmin/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// Add this to navigate to the Codes Screen
 
 class TopicsScreen extends StatefulWidget {
   final String courseId;
@@ -19,14 +18,22 @@ class _TopicsScreenState extends State<TopicsScreen> {
   final TextEditingController _topicTitleController = TextEditingController();
   final TextEditingController _topicDescController = TextEditingController();
 
-  void _addTopic() {
+  void _addOrUpdateTopic(String? topicId) {
     String title = _topicTitleController.text.trim();
     String description = _topicDescController.text.trim();
 
     if (title.isNotEmpty && description.isNotEmpty) {
-      _firebaseService.addTopic(widget.courseId, title, description);
+      if (topicId == null) {
+        _firebaseService.addTopic(widget.courseId, title, description);
+      } else {
+        _firebaseService.updateTopics(widget.courseId, topicId, title, description);
+      }
       Navigator.of(context).pop();
     }
+  }
+
+  void _deleteTopic(String topicId) {
+    _firebaseService.deleteTopics(widget.courseId, topicId);
   }
 
   @override
@@ -60,11 +67,35 @@ class _TopicsScreenState extends State<TopicsScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                           CodesScreen(courseId: widget.courseId, topicId: topic.id, topicTitle: topic['title']),
+                        builder: (context) => CodesScreen(
+                          courseId: widget.courseId,
+                          topicId: topic.id,
+                          topicTitle: topic['title'],
+                        ),
                       ),
                     );
                   },
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          _showAddTopicDialog(
+                            topicId: topic.id,
+                            initialTitle: topic['title'],
+                            initialDescription: topic['description'],
+                          );
+                        },
+                        icon: Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          _deleteTopic(topic.id);
+                        },
+                        icon: Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
                 );
               },
             );
@@ -83,11 +114,14 @@ class _TopicsScreenState extends State<TopicsScreen> {
     );
   }
 
-  void _showAddTopicDialog() {
+  void _showAddTopicDialog({String? topicId, String? initialTitle, String? initialDescription}) {
+    _topicTitleController.text = initialTitle ?? '';
+    _topicDescController.text = initialDescription ?? '';
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Add Topic'),
+        title: Text(topicId == null ? 'Add Topic' : 'Edit Topic'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -111,8 +145,12 @@ class _TopicsScreenState extends State<TopicsScreen> {
             child: Text('Cancel'),
           ),
           TextButton(
-            onPressed: _addTopic,
-            child: Text('Add'),
+            onPressed: () {
+              _addOrUpdateTopic(topicId);
+              _topicTitleController.clear();
+              _topicDescController.clear();
+            },
+            child: Text(topicId == null ? 'Add' : 'Update'),
           ),
         ],
       ),

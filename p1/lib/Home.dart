@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(color: Color.fromARGB(255, 24, 23, 23)),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Enter Name',
+                            hintText: 'Enter user Name',
                             hintStyle: TextStyle(color: Colors.black),
                           ),
                         ),

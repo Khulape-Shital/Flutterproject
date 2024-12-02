@@ -1,0 +1,58 @@
+name: coastaltourism
+description: "A new Flutter project for exploring coastal tourism in India."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Firebase Packages
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
+  firebase_storage: ^12.3.4
+  # UI and Animations
+  action_slider: ^0.7.0
+  salomon_bottom_bar: ^3.3.2
+  carousel_slider: ^5.0.0
+  fancy_drawer: ^2.0.0
+  animations: ^2.0.6
+  google_fonts: ^6.2.1
+  # Location and Maps
+  geolocator: ^13.0.2
+  location: ^7.0.1
+  google_maps_flutter: ^2.9.0
+  dio: ^5.7.0
+  rating_dialog: ^2.0.4
+  # flutter_map for advanced map features
+  flutter_map: ^7.0.2
+  flutter_map_animations: ^0.7.1
+  flutter_map_cancellable_tile_provider: ^3.0.2
+  # Utilities
+  crypto: ^3.0.1
+  image_picker: ^1.1.2
+  cupertino_icons: ^1.0.8
+  flutter_local_notifications: ^15.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Add your assets here, if any
+  # assets:
+  #   - assets/images/
+  #   - assets/icons/
+
+  # Add custom fonts if needed
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: fonts/CustomFont-Regular.ttf

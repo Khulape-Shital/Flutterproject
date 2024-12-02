@@ -1,0 +1,31 @@
+name: location
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: "^3.5.4"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  google_maps_flutter: ^2.1.1  # Ensure you are using a compatible version
+  flutter_map: ^2.2.0 # Remove if not using flutter_map for maps
+  geolocator: ^9.0.0
+  latlong2: ^0.8.1
+  permission_handler: ^11.3.1
+  url_strategy: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/burr.jpeg
+    - images/dot.jpeg

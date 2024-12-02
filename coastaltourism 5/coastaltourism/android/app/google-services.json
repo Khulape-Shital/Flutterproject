@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "780597638124",
+    "project_id": "coastal-tourism-4e03f",
+    "storage_bucket": "coastal-tourism-4e03f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780597638124:android:b4a05804c7a9aeb56f46c9",
+        "android_client_info": {
+          "package_name": "com.example.coastaltourism"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5Xy8HyRMpjlxbUzvIqkFlowJAAgFfywE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

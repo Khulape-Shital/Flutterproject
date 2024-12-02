@@ -1,47 +1,69 @@
-import 'dart:ui'; // Needed for the ImageFilter.blur
+import 'dart:convert';
+import 'dart:ui';
+import 'package:coastaltourism/screens/data.dart';
+import 'package:coastaltourism/screens/screen1.dart';
+import 'package:coastaltourism/screens/screensignin.dart';
+import 'package:coastaltourism/screens/searchPlace.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coastaltourism/screens/screenHome.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+// Function to fetch the last stored image from Firestore
+Future<String?> fetchLastImageUrl() async {
+  try {
+    // Query the "images" collection ordered by "timestamp" in descending order
+    final snapshot = await FirebaseFirestore.instance
+        .collection('images')
+        .orderBy('timestamp', descending: true)
+        .limit(1)
+        .get();
 
-  @override
-  State<Home> createState() => _HomeState();
+    // Check if any documents exist
+    if (snapshot.docs.isNotEmpty) {
+      // Retrieve the "imageUrl" field from the most recent document
+      String imageUrl = snapshot.docs.first.data()['imageUrl'] as String;
+      return imageUrl;
+    } else {
+      print('No images found in Firestore.');
+      return null;
+    }
+  } catch (e) {
+    print('Error fetching last image URL: $e');
+    return null;
+  }
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class Screenlogin extends StatefulWidget {
+  const Screenlogin({super.key});
+
+  @override
+  State<Screenlogin> createState() => _HomeState();
+}
+
+class _HomeState extends State<Screenlogin> with SingleTickerProviderStateMixin {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // Animation controller and variables
   late AnimationController _controller;
   late Animation<double> _fadeInAnimation;
   late Animation<Offset> _slideAnimation;
-
   bool _isPasswordVisible = false;
 
   @override
   void initState() {
     super.initState();
-
-    // Initialize the animation controller
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
 
-    // Fade-in animation from opacity 0 to 1
     _fadeInAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
 
-    // Slide animation from top to its original position
-    _slideAnimation = Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0)).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _slideAnimation = Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0))
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    // Start animation when page loads
     _controller.forward();
   }
 
@@ -51,187 +73,185 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  String hashPassword(String password) {
+    var bytes = utf8.encode(password); // Convert the password into bytes using utf8 encoding
+    var digest = sha256.convert(bytes); // Create the SHA256 hash of the password
+    return digest.toString(); // Return the hash as a string
+  }
+
+  Future<void> _signIn() async {
+    if (userNameController.text.isEmpty || passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please enter both username and password"),
+          backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    String username = userNameController.text.trim();
+    String password = passwordController.text.trim();
+
+    try {
+      final userRef = FirebaseFirestore.instance.collection('users');
+      final querySnapshot = await userRef
+          .where('username', isEqualTo: username)
+          .where('password', isEqualTo: hashPassword(password))
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var userData = querySnapshot.docs.first.data();
+        String? lastImageUrl = await fetchLastImageUrl();
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Screen1(
+              title: "Welcome",
+              username: username,
+              password: password,
+              beachesinfo: beaches,
+              imageUrl: lastImageUrl ?? "", // Pass the last image URL or empty if none
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Invalid username or password. Please sign up first."),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("An error occurred. Please try again."),
+          backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final CollectionReference userRef = FirebaseFirestore.instance.collection('users');
-
     return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-        stream: userRef.snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          return Stack(
-            children: [
-              // Background image
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      "https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8N3x8fGVufDB8fHx8fA%3D%3D",
-                    ),
-                    fit: BoxFit.cover,
-                  ),
+      body: Stack(
+        children: [
+          // Background, Gradient, and Blur Effect
+           Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  "https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3",
                 ),
+                fit: BoxFit.cover,
               ),
-              // Gradient overlay for better text contrast
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black.withOpacity(0.5),
-                      Colors.black.withOpacity(0.3),
-                      Colors.transparent,
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-              ),
-              // Apply blur effect on the background
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            ),
+          ),
+          BackdropFilter(
+           filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: Container(color: Colors.transparent),
+          ),
+          Center(
+            child: FadeTransition(
+              opacity: _fadeInAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
                 child: Container(
-                  color: Colors.black.withOpacity(0), // Required for BackdropFilter to apply
-                ),
-              ),
-              // The main login form container
-              Center(
-                child: FadeTransition(
-                  opacity: _fadeInAnimation,
-                  child: SlideTransition(
-                    position: _slideAnimation,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      height: 450,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                        // color: Colors.white.withOpacity(0.8), // Semi-transparent container
-                        image: DecorationImage(image: NetworkImage("https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8N3x8fGVufDB8fHx8fA%3D%3D")),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 20,
-                            offset: Offset(0, 10),
-                          ),
-                        ],
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  height: 500,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    color: Colors.white.withOpacity(0.8),
+                    
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: TextField(
+                          controller: userNameController,
+                          cursorColor: Colors.blue,
+                          decoration: InputDecoration(labelText: 'Username'),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: TextField(
+                          controller: passwordController,
+                          obscureText: !_isPasswordVisible,
+                          cursorColor: Colors.blue,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                            ),
+                          ),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      ElevatedButton(
+                        onPressed: _signIn,
+                        child: Text("Login"),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 15),
+                          textStyle: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: const Color.fromARGB(255, 59, 92, 192)),
+                          backgroundColor: Colors.blue,
+                          elevation: 5,
+                        ),
+                      ),
+                      Row(
                         children: [
-                          // Username TextField
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: TextField(
-                              controller: userNameController,
-                              cursorColor: Color.fromARGB(255, 67, 154, 226),
-                              style: TextStyle(color: Colors.black87, fontSize: 20,fontWeight: FontWeight.w400),
-                              decoration: InputDecoration(
-                                labelText: 'Username',
-                                
-                                filled: true,
-                                fillColor: Colors.transparent,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide.none,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: const Color.fromARGB(255, 11, 11, 11)),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              ),
-                            ),
-                          ),
-                          // Password TextField with Eye Icon
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: TextField(
-                              controller: passwordController,
-                              obscureText: !_isPasswordVisible,
-                              cursorColor: Color.fromARGB(255, 67, 154, 226),
-                              style: TextStyle(color: Colors.black87, fontSize: 20,fontWeight: FontWeight.w400),
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                
-                                filled: true,
-                                fillColor: Colors.transparent,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide.none,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color:  const Color.fromARGB(255, 11, 11, 11)),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isPasswordVisible = !_isPasswordVisible;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          // Submit Button
-                          SizedBox(height: 12),
-                          ElevatedButton(
-                            onPressed: () async {
-                              if (userNameController.text.isNotEmpty &&
-                                  passwordController.text.isNotEmpty) {
-                                try {
-                                  await userRef.add({
-                                    'username': userNameController.text,
-                                    'password': passwordController.text,
-                                  });
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Screenhome()),
-                                  );
-                                } catch (e) {
-                                  print("Error adding user: $e");
-                                }
-                              } else {
-                                print("Please enter both username and password");
-                              }
+                          Text("Don't have an account?",style:TextStyle(fontSize: 18,fontWeight: FontWeight.w500) ,),
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Screensignin()));
                             },
-                            child: Text("Submit"),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                              textStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.w400),
-                              backgroundColor: Colors.blueAccent,
-                              elevation: 5,
-                            ),
-                          ),
+                            child: Text("_Sign Up",style:TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: const Color.fromARGB(255, 249, 76, 64)) ,)),
                         ],
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ),
               ),
-            ],
-          );
-        },
+            ),
+          ),
+        ],
       ),
     );
   }

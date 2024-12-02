@@ -12,10 +12,15 @@ class _GetapiState extends State<Getapi> {
 
   bool loading  = true;
   List data =[];
-  Future<void> fetchData() async{
-    var url = Uri.parse("https://jsonplaceholder.typicode.com/photos");
-    debugPrint("before data");
-    var response = await http.get(url);
+    Future<void> fetchData() async {
+    var url =Uri.parse("https://api.api-ninjas.com/v1/weather?city=London");
+    var headers = <String,String> {
+      'x-api-key': 'D7YpVRLAQp44HQFtxYXFNg==EHlxn9Srm1yy2sSn',
+      'Content-Type': 'application/json',  // Optional, adjust if needed
+    };
+
+    var response = await http.get(url, headers:headers);
+
    debugPrint("data${response.statusCode}");
    if(response.statusCode ==200){
     setState(() {
