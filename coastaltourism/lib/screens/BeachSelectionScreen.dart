@@ -1,15 +1,26 @@
-import 'package:coastaltourism/screens/BeachInfoDisplay.dart';
-import 'package:coastaltourism/screens/RatingScreen.dart';
-import 'package:coastaltourism/screens/progilescreen.dart'; 
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:coastaltourism/screens/BeachInfoDisplay.dart';
+import 'package:coastaltourism/screens/RatingScreen.dart';
+import 'package:coastaltourism/screens/data.dart';
+import 'package:coastaltourism/screens/progfilescreen.dart';
+import 'package:coastaltourism/screens/screen1.dart'; 
 
 class BeachSelectionScreen extends StatefulWidget {
   final List<Map<String, dynamic>> stateBeachesData;
   String username;
   String imageUrl;
-
-  BeachSelectionScreen({required this.stateBeachesData,required this.username,required this.imageUrl});
+  String password;
+  List beachesinfo;
+  String title;
+  BeachSelectionScreen({
+    required this.stateBeachesData,
+    required this.username,
+    required this.imageUrl,
+    required this.beachesinfo,
+    required this.password,
+    required this.title,
+  });
 
   @override
   _BeachSelectionScreenState createState() => _BeachSelectionScreenState();
@@ -18,6 +29,7 @@ class BeachSelectionScreen extends StatefulWidget {
 class _BeachSelectionScreenState extends State<BeachSelectionScreen> {
   String? selectedState;
   String? selectedBeach;
+  int _currentIndex = 0; // Track the current tab index
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +58,8 @@ class _BeachSelectionScreenState extends State<BeachSelectionScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          widget.imageUrl
-                          ),fit: BoxFit.cover
+                      image: NetworkImage(widget.imageUrl), 
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -73,7 +84,7 @@ class _BeachSelectionScreenState extends State<BeachSelectionScreen> {
               ),
               child: DropdownButton<String>(
                 isExpanded: true,
-                hint: Text('Select State',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                hint: Text('Select State', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                 value: selectedState,
                 onChanged: (newValue) {
                   setState(() {
@@ -104,7 +115,7 @@ class _BeachSelectionScreenState extends State<BeachSelectionScreen> {
                 ),
                 child: DropdownButton<String>(
                   isExpanded: true,
-                  hint: Text('Select Beach',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                  hint: Text('Select Beach', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                   value: selectedBeach,
                   onChanged: (newValue) {
                     setState(() {
@@ -139,44 +150,82 @@ class _BeachSelectionScreenState extends State<BeachSelectionScreen> {
 
       // Bottom Navigation Bar
       bottomNavigationBar: SalomonBottomBar(
-        currentIndex: 0,
-        onTap: (i) => setState(() {}),
+        currentIndex: _currentIndex,
+        onTap: (i) => setState(() => _currentIndex = i),
         items: [
           SalomonBottomBarItem(
             icon: Icon(Icons.home),
             title: InkWell(
               onTap: () {
-                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Screen1(
+                      title: widget.title,
+                      username: widget.username,
+                      password: widget.password,
+                      beachesinfo: widget.beachesinfo,
+                      imageUrl: widget.imageUrl,
+                    ),
+                  ),
+                );
               },
-              child: Text("Home")),
+              child: Text("Home"),
+            ),
             selectedColor: Colors.blue,
           ),
           SalomonBottomBarItem(
             icon: Icon(Icons.favorite_border),
             title: InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>RatingScreen(username: widget.username,imageUrl: widget.imageUrl,)));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RatingScreen(
+                      username: widget.username,
+                      imageUrl: widget.imageUrl,
+                    ),
+                  ),
+                );
               },
-              child: Text("Likes")),
+              child: Text("Likes"),
+            ),
             selectedColor: Colors.blue,
           ),
           SalomonBottomBarItem(
             icon: Icon(Icons.search),
             title: InkWell(
               onTap: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context)=>BeachSelectionScreen(stateBeachesData: widget.stateBeachesData, username: widget.username,imageUrl: widget.imageUrl,)));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BeachSelectionScreen(
+                      stateBeachesData: widget.stateBeachesData,
+                      username: widget.username,
+                      imageUrl: widget.imageUrl,
+                      password: widget.password,
+                      beachesinfo: widget.beachesinfo,
+                      title: widget.title,
+                    ),
+                  ),
+                );
               },
-              child: Text("Search")),
+              child: Text("Search"),
+            ),
             selectedColor: Colors.blue,
           ),
           SalomonBottomBarItem(
             icon: Icon(Icons.person),
             title: InkWell(
               onTap: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
               },
-              child: Text("Profile")),
-            selectedColor: Colors.blue,
+              child: Text("Profile"),
+            ),
+            selectedColor: Colors.grey,
           ),
         ],
       ),

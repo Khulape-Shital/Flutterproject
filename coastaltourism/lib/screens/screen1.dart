@@ -5,7 +5,7 @@ import 'package:coastaltourism/screens/classes.dart'; // Assuming you have this 
 import 'package:coastaltourism/screens/data.dart';
 import 'package:coastaltourism/screens/demo.dart';
 import 'package:coastaltourism/screens/hotels.dart';
-import 'package:coastaltourism/screens/progilescreen.dart';
+import 'package:coastaltourism/screens/progfilescreen.dart';
 import 'package:coastaltourism/screens/screenhome.dart';
 import 'package:coastaltourism/screens/screenlogin.dart';
 
@@ -100,9 +100,7 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: NetworkImage(
-                      widget.imageUrl
-                    ),
+                    backgroundImage: NetworkImage(widget.imageUrl),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -149,6 +147,9 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                               stateBeachesData: beaches,
                               username: widget.username,
                               imageUrl: widget.imageUrl,
+                              title: widget.title,
+                              password: widget.password,
+                              beachesinfo: widget.beachesinfo,
                             )));
               },
             ),
@@ -159,8 +160,10 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            rating.RatingScreen(username: widget.username,imageUrl: widget.imageUrl,)));
+                        builder: (context) => rating.RatingScreen(
+                              username: widget.username,
+                              imageUrl: widget.imageUrl,
+                            )));
               },
             ),
             ListTile(
@@ -189,26 +192,24 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                           height: 70,
                           width: 70,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(1000)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(1000)),
                             image: DecorationImage(
-                              image: NetworkImage(
-                                  widget.imageUrl),
-                                  fit: BoxFit.cover
-                            ),
+                                image: NetworkImage(widget.imageUrl),
+                                fit: BoxFit.cover),
                           ),
                         ),
-                         Padding(
-                           padding: const EdgeInsets.all(8.0),
-                           child: Text(
-                                               widget.username,
-                                               style: TextStyle(
-                                                   color: const Color.fromARGB(255, 12, 12, 12),
-                                                   fontSize: 20),
-                                             ),
-                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            widget.username,
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 12, 12, 12),
+                                fontSize: 20),
+                          ),
+                        ),
                       ],
                     ),
-                   
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -379,14 +380,19 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
           SalomonBottomBarItem(
             icon: Icon(Icons.home),
             title: InkWell(
-              onTap: () {
-                    Navigator.push(
+                onTap: () {
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                             Screen1(title: widget.title, username:widget. username, password:widget. password, beachesinfo:widget. beachesinfo,imageUrl: widget.imageUrl,)));
-              },
-              child: Text("Home")),
+                          builder: (context) => Screen1(
+                                title: widget.title,
+                                username: widget.username,
+                                password: widget.password,
+                                beachesinfo: widget.beachesinfo,
+                                imageUrl: widget.imageUrl,
+                              )));
+                },
+                child: Text("Home")),
             selectedColor: Colors.blue,
           ),
           SalomonBottomBarItem(
@@ -396,8 +402,10 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              rating.RatingScreen(username: widget.username,imageUrl: widget.imageUrl,)));
+                          builder: (context) => rating.RatingScreen(
+                                username: widget.username,
+                                imageUrl: widget.imageUrl,
+                              )));
                 },
                 child: Text("Likes")),
             selectedColor: Colors.blue,
@@ -413,6 +421,9 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                                 stateBeachesData: beaches,
                                 username: widget.username,
                                 imageUrl: widget.imageUrl,
+                                title: widget.title,
+                                password: widget.password,
+                                beachesinfo: widget.beachesinfo,
                               )));
                 },
                 child: Text("Search")),

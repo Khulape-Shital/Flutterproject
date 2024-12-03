@@ -2,12 +2,54 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
-class RatingScreen extends StatelessWidget {
+class RatingStars extends StatelessWidget {
+  final double rating; // Rating value (e.g., 3.5, 4.0, etc.)
+  final int maxRating; // Maximum number of stars (typically 5)
+
+  RatingStars({required this.rating, this.maxRating = 5});
+
+  @override
+  Widget build(BuildContext context) {
+    // Calculate the number of full stars
+    int fullStars = rating.floor();
+    // Check if there should be a half star
+    bool hasHalfStar = rating - fullStars >= 0.5;
+    // Calculate the number of empty stars
+    int emptyStars = maxRating - fullStars - (hasHalfStar ? 1 : 0);
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Display full stars
+        for (var i = 0; i < fullStars; i++) Icon(Icons.star, color: Colors.yellow),
+        // Display half star if necessary
+        if (hasHalfStar) Icon(Icons.star_half, color: Colors.yellow),
+        // Display empty stars
+        for (var i = 0; i < emptyStars; i++) Icon(Icons.star_border, color: Colors.yellow),
+      ],
+    );
+  }
+}
+
+class RatingScreen extends StatefulWidget {
   final FirebaseService firebaseService = FirebaseService();
   final String username; 
-  String imageUrl; // Add the user ID here
+  String imageUrl;
 
-  RatingScreen({required this.username,required this.imageUrl});
+  RatingScreen({required this.username, required this.imageUrl});
+
+  @override
+  _RatingScreenState createState() => _RatingScreenState();
+}
+
+class _RatingScreenState extends State<RatingScreen> {
+  late Future<List<Map<String, dynamic>>> _ratings;
+
+  @override
+  void initState() {
+    super.initState();
+    _ratings = widget.firebaseService.getRatings(); // Fetch ratings when screen loads
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +67,7 @@ class RatingScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50,
-                backgroundImage: NetworkImage(imageUrl,), // Replace with your app icon
+                backgroundImage: NetworkImage(widget.imageUrl),
               ),
               const SizedBox(height: 20),
               const Text(
@@ -67,6 +109,33 @@ class RatingScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: _ratings,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          final rating = snapshot.data![index];
+                          return ListTile(
+                            title: Text('${rating['userId']}'),
+                            subtitle: Text('${rating['comment']}'),
+                            trailing: RatingStars(rating: rating['rating']), // Display stars
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Text('No ratings yet!');
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -91,15 +160,15 @@ class RatingScreen extends StatelessWidget {
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 16, color: Colors.grey),
       ),
-      image: const CircleAvatar(
+      image: CircleAvatar(
         radius: 40,
-        backgroundImage:NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZO8GPm0phbELvMAA6QsEOYilHs0Fnmq3k2w&s",), // Replace with your app icon
+        backgroundImage: NetworkImage(widget.imageUrl),
       ),
       submitButtonText: 'Submit',
       commentHint: 'Write your feedback...',
       onCancelled: () => print('Rating dialog cancelled'),
       onSubmitted: (response) async {
-        await firebaseService.storeRating(username, response.rating, response.comment);
+        await widget.firebaseService.storeRating(widget.username, response.rating, response.comment);
         print('Rating and comment submitted');
 
         // Show confirmation message with SnackBar
@@ -120,13 +189,15 @@ class RatingScreen extends StatelessWidget {
     );
   }
 }
+
 class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // Store the rating and comment in Firestore
   Future<void> storeRating(String username, double rating, String comment) async {
     try {
       await _firestore.collection('ratings').add({
-        'userId': username,  // Store the user ID
+        'userId': username,
         'rating': rating,
         'comment': comment,
         'timestamp': Timestamp.now(),
@@ -134,6 +205,23 @@ class FirebaseService {
       print("Rating and comment saved successfully.");
     } catch (e) {
       print("Failed to save rating: $e");
+    }
+  }
+
+  // Fetch all ratings from Firestore
+  Future<List<Map<String, dynamic>>> getRatings() async {
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('ratings').get();
+      return snapshot.docs.map((doc) {
+        return {
+          'userId': doc['userId'],  // If it's stored as 'username'
+          'rating': doc['rating'],
+          'comment': doc['comment'],
+        };
+      }).toList();
+    } catch (e) {
+      print("Failed to fetch ratings: $e");
+      return [];
     }
   }
 }

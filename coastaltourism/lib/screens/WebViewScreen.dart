@@ -27,7 +27,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
       body: Stack(
         children: [
           InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse("https://www.zomato.com")),
+            initialUrlRequest:
+                URLRequest(url: Uri.parse("https://www.zomato.com")),
             onWebViewCreated: (InAppWebViewController controller) {
               _controller = controller;
             },
@@ -41,7 +42,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
                 isLoading = false;
               });
             },
-            onProgressChanged: (InAppWebViewController controller, int progress) {
+            onProgressChanged:
+                (InAppWebViewController controller, int progress) {
               // Optionally update progress
             },
           ),

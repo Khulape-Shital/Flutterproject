@@ -1,7 +1,7 @@
 import 'package:coastaltourism/firebase_options.dart';
 import 'package:coastaltourism/screens/WebViewScreen.dart';
 import 'package:coastaltourism/screens/home.dart';
-import 'package:coastaltourism/screens/progilescreen.dart';
+import 'package:coastaltourism/screens/progfilescreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:coastaltourism/screens/WebViewScreen.dart'; // Ensure this exists

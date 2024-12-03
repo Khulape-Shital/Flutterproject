@@ -753,7 +753,7 @@ List<Map<String, dynamic>> popular =[
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGlHjfCOYAAhkBoF1XsxGHT8lO7oQyJvrr3Q&s",
     "BeachName": "Puri Beach",
     "WaveHeight": "1.5–2 meters (moderate to high waves)",
-    "WaterQuality": "Fair (good for religious activities, but some pollution)",
+    "WaterQuality": "Fair (Good for religious activities, but some pollution)",
     "WindSpeed": "10–15 km/h (light breeze)",
     "TideLevel": "High tide: 1.7 meters, Low tide: 0.6 meters",
     "Latitude": 19.8007,
