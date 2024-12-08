@@ -32,7 +32,7 @@ class _BeachInfoDisplayState extends State<BeachInfoDisplay> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 121, 145, 189),
+        backgroundColor: Color.fromARGB(255, 83, 107, 151),
         title: Text(widget.selectedBeach),
         actions: [
           IconButton(
